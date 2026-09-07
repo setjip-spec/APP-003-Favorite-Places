@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#66715a" />
+  <title>Любимые места</title>
+  <link rel="stylesheet" href="styles.css?v=0.1.0" />
+</head>
+<body>
+  <div id="authGate" class="auth-gate hidden">
+    <form id="authForm" class="auth-card">
+      <div class="eyebrow">MINI APPS · APP-003</div>
+      <h1>Любимые места</h1>
+      <p>Войдите в общий профиль MINI-APPS-CLOUD.</p>
+      <label>Email<input name="email" type="email" autocomplete="username" required /></label>
+      <label>Пароль<input name="password" type="password" autocomplete="current-password" required /></label>
+      <div id="authError" class="form-error"></div>
+      <button class="primary" type="submit">Войти</button>
+    </form>
+  </div>
+
+  <div id="app" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">LM</div>
+        <div><strong>Любимые места</strong><span>персональная CRM</span></div>
+      </div>
+      <nav id="nav">
+        <button data-screen="quick" class="active">Быстрый выбор</button>
+        <button data-screen="catalog">Каталог</button>
+        <button data-screen="visits">Посещения</button>
+        <button data-screen="archive">Архив</button>
+        <button data-screen="settings">Настройки</button>
+      </nav>
+      <div class="sidebar-foot">
+        <span id="cloudStatus">облако</span>
+        <button id="logoutBtn" class="link-btn">Выйти</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">APP-003 · v0.1</div>
+          <h1 id="screenTitle">Быстрый выбор</h1>
+        </div>
+        <div class="top-actions">
+          <button id="refreshBtn" class="secondary">Обновить</button>
+          <button id="addPlaceBtn" class="primary">+ Добавить место</button>
+        </div>
+      </header>
+
+      <section id="quickScreen" class="screen active">
+        <div class="panel filter-panel">
+          <div class="panel-head"><div><h2>Подобрать вариант</h2><p>Фильтры работают вместе по AND.</p></div><button id="resetQuickBtn" class="secondary">Сбросить всё</button></div>
+          <div id="quickFilters" class="filter-grid"></div>
+          <details class="advanced"><summary>Дополнительные фильтры</summary><div id="advancedFilters" class="filter-grid"></div></details>
+        </div>
+        <div class="results-head"><strong id="quickCount">0 вариантов</strong><select id="quickSort"></select></div>
+        <div id="quickResults" class="cards-grid"></div>
+      </section>
+
+      <section id="catalogScreen" class="screen">
+        <div class="panel catalog-tools">
+          <input id="catalogSearch" class="search" placeholder="Поиск: название, район, станция, описание" />
+          <select id="catalogStatus"></select>
+          <select id="catalogVerdict"></select>
+          <select id="catalogType"></select>
+          <select id="catalogSort"></select>
+        </div>
+        <div class="table-wrap">
+          <table class="catalog-table">
+            <thead><tr><th>Код</th><th>Название</th><th>Статус</th><th>Вердикт</th><th>Тип</th><th>Дорога</th><th>Стоимость</th><th>Оценка</th></tr></thead>
+            <tbody id="catalogBody"></tbody>
+          </table>
+        </div>
+        <div id="catalogMobile" class="cards-grid mobile-only"></div>
+      </section>
+
+      <section id="visitsScreen" class="screen">
+        <div class="panel catalog-tools">
+          <select id="visitPlaceFilter"></select>
+          <select id="visitVerdictFilter"></select>
+          <select id="visitCompanionFilter"></select>
+          <select id="visitTimeFilter"></select>
+        </div>
+        <div id="visitsList" class="visit-list"></div>
+      </section>
+
+      <section id="archiveScreen" class="screen"><div id="archiveList" class="cards-grid"></div></section>
+
+      <section id="settingsScreen" class="screen">
+        <div class="panel settings-card">
+          <h2>Системные настройки</h2>
+          <div id="settingsInfo" class="settings-grid"></div>
+          <p class="muted">Справочники и модель данных хранятся в Supabase. Точка отсчёта дороги — Коптево.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden"><div id="modalCard" class="modal-card"></div></div>
+  <div id="toast" class="toast hidden"></div>
+  <div id="busy" class="busy hidden">Синхронизация…</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js?v=0.1.0"></script>
+</body>
+</html>
