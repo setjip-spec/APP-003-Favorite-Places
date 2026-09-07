@@ -28,3 +28,13 @@ jobs:
           grep -q 'APP-003' README.md
           grep -q 'app003_places' app.js
           grep -q 'app003_visits' app.js
+      - name: Build recovery package
+        run: |
+          mkdir -p recovery
+          cp -R README.md index.html styles.css app.js .nojekyll docs recovery/
+          printf '%s\n' "$GITHUB_SHA" > recovery/COMMIT.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: APP-003-Favorite-Places-source
+          path: recovery
+          retention-days: 30
