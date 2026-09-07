@@ -1,0 +1,30 @@
+name: Validate APP-003
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Check required files
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f app.js
+          test -f docs/APP-003-TZ.md
+          test -f docs/LINKS.md
+          test -f docs/RECOVERY.md
+      - name: Validate APP-ID and Supabase tables
+        run: |
+          grep -q 'APP-003' README.md
+          grep -q 'app003_places' app.js
+          grep -q 'app003_visits' app.js
